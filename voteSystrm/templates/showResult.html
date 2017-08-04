@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结果</title>
+    <style>
+        .mainBox{
+            width: 200px;
+            height: 300px;
+            background: #f2f2f2;
+            border:2px solid #000;
+            border-radius: 10%;
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            margin: auto;
+        }
+        .header{
+            text-align: center;
+        }
+        .opt{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mainBox">
+        <h2 class="header">{{ obj.objName }}</h2>
+        <ul>
+        {% for option in optionContent %}
+            <li>{{ option.option }}:{{ option.polls }}票</li>
+        {% endfor %}
+        </ul>
+        <div class="opt"><a href="{% url 'vote:index' %}">返回主页</a></div>
+    </div>
+</body>
+</html>

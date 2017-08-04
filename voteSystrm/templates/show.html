@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>choice</title>
+    <style>
+        .mainBox{
+            width: 200px;
+            height: 300px;
+            background: #f2f2f2;
+            border:2px solid #000;
+            border-radius: 10%;
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            margin: auto;
+        }
+        .header{
+            text-align: center;
+        }
+        .opt{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mainBox">
+        {# 这里的id是传给urls的然后urls再传给views。用途是通过id提取主表数据，再通过option_set处理子表 #}
+        <form action="{% url 'vote:showAction' obj.id %}" method="post"> {# method方法记得加+++ #}
+            {% csrf_token %}
+            <h2 class="header">{{ obj.objName }}</h2>
+            {% for option in optionContent %}
+                {# 这里的id是点击提交后传递给POST方法的id #}
+                {% if obj.flog %}
+                    <input type="checkbox" name="myOption" value="{{ option.id }}">{{ option.option }}<br>
+                {% else %}
+                    <input type="radio" name="myOption" value="{{ option.id }}">{{ option.option }}<br>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <div class="opt">
+                <input type="submit" value="提交投票">
+                <a href="{% url 'vote:index' %}">返回主页</a>
+            </div>
+        </form>
+    <p class="opt">{{ getError }}</p>
+    </div>
+</body>
+</html>
